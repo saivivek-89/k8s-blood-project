@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bloodappstatefulset
+
+spec:
+  serviceName: mysqldb
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: app-db
+
+  template:
+    metadata:
+      labels:
+        app: app-db
+
+    spec:
+      containers:
+      - name: contdb
+        image: dockersai891/bloodapp:dbimage
+
+        ports:
+        - containerPort: 3306
+
+
+        envFrom:
+        - secretRef:
+            name:   bloodappsecret
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+
+        volumeMounts:
+        - name: bloodapppvc
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+  - metadata:
+      name: bloodapppvc
+    spec:
+      accessModes: 
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 2Gi
