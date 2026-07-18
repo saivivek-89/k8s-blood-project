@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: contapp
-        image: shaikmustafa/phpapp:appimage
+        image: dockersai891/bloodapp:appimage
 
         ports:
         - containerPort: 80
