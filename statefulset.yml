@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: contdb
-        image: dockersai891/bloodapp:dbimage
+        image: shaikmustafa/phpapp:dbimage
 
         ports:
         - containerPort: 3306
